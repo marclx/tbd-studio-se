@@ -10,30 +10,27 @@
 // 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
-package org.talend.repository.nosql.ui.context.handler;
-
-import java.util.Map;
+package org.talend.repository.oozie.ui.handler;
 
 import org.talend.core.IRepositoryContextUpdateService;
 import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.repository.model.nosql.NoSQLConnection;
+import org.talend.repository.model.oozie.OozieConnection;
 
 /**
- * created by ldong on Mar 5, 2015 Detailled comment
- * 
+ * created by ldong on Mar 18, 2015 Detailled comment
+ *
  */
-public class NoSqlContextUpdateService implements IRepositoryContextUpdateService {
+public class OozieContextUpdateService implements IRepositoryContextUpdateService {
 
     @Override
-    public void updateRelatedContextVariable(Connection conn, String oldValue, String newValue) {
-        if (conn instanceof NoSQLConnection) {
-            NoSQLConnection noSqlConn = (NoSQLConnection) conn;
-            for (Map.Entry<String, String> attr : noSqlConn.getAttributes()) {
-                if (attr.getValue().equals(oldValue)) {
-                    attr.setValue(newValue);
-                }
+    public void updateRelatedContextVariable(Connection con, String oldValue, String newValue) {
+        if (con instanceof OozieConnection) {
+            OozieConnection oozieConn = (OozieConnection) con;
+            if (oozieConn.getUserName().equals(oldValue)) {
+                oozieConn.setUserName(newValue);
+            } else if (oozieConn.getOozieEndPoind().equals(oldValue)) {
+                oozieConn.setOozieEndPoind(newValue);
             }
         }
     }
-
 }
